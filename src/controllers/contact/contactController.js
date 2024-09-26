@@ -1,6 +1,6 @@
 const Contact = require("../../models/Contact");
 const nodemailer = require("nodemailer");
-const config = require("../config/config").mail;
+const config = require("../../config/config").mail;
 
 exports.getContacts = async (req, res) => {
   try {
