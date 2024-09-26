@@ -10,6 +10,7 @@ module.exports = {
   development: {
     username: process.env.DEV_DB_USERNAME,
     database: process.env.DEV_DB_NAME,
+    password: process.env.DEV_DB_PASSWORD,
     host: process.env.DEV_DB_HOST,
   },
   mail: {

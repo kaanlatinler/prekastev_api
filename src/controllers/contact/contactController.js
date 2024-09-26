@@ -29,7 +29,7 @@ exports.sendMail = async (req, res) => {
     try {
       const mailOptions = {
         from: email,
-        to: "satis@prekastev.com",
+        to: "kaanlatinlerhd@gmail.com",
         subject: `New Contact from ${name}`,
         text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}\nArea Size: ${areaSize}\nBudget: ${budget}\nProperty Type: ${propertyType}`,
       };
