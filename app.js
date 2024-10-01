@@ -12,6 +12,7 @@ const faqRoutes = require("./src/routes/faq/faqRoutes");
 const aboutRoutes = require("./src/routes/about/aboutRoutes");
 const servicesRoutes = require("./src/routes/service/serviceRoutes");
 const contactRoutes = require("./src/routes/contact/contactRoutes");
+const userRoutes = require("./src/routes/user/userRoutes");
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use("/api/faqs", faqRoutes);
 app.use("/api/abouts", aboutRoutes);
 app.use("/api/services", servicesRoutes);
 app.use("/api/contacts", contactRoutes);
+app.use("/api/users", userRoutes);
 
 const PORT = process.env.PORT || 3000;
 

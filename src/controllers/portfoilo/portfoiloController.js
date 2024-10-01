@@ -10,6 +10,7 @@ exports.getPortfoilos = async (req, res) => {
           attributes: ["url"],
         },
       ],
+      order: [["title", "ASC"]], // Burada alfabetik sıralama yapıyoruz
     });
     res.status(200).json({ portfoilos, success: true });
   } catch (error) {
@@ -31,7 +32,7 @@ exports.addPortfoilo = async (req, res) => {
       roomCount,
       filter,
       mainPicture,
-      images, // images array
+      images,
     } = req.body;
 
     // Portfoilo oluştur
@@ -45,18 +46,19 @@ exports.addPortfoilo = async (req, res) => {
       firstFloorTerrace,
       roomCount,
       filter,
-      mainPicture,
+      mainPicture, // Resim URL'leri ile kaydetme
     });
 
-    // Images array'ini döngü ile kaydet
-    const imagePromises = images.map(async (image) => {
-      return await Images.create({
-        url: image.url, // Portfoilo'nun ID'sini ilişkilendir
-        pId: portfoilo.id,
+    if (images && images.length > 0) {
+      const imagePromises = images.map(async (image) => {
+        return await Images.create({
+          url: image,
+          pId: portfoilo.id,
+        });
       });
-    });
 
-    await Promise.all(imagePromises); // Tüm image kayıtlarının tamamlanmasını bekle
+      await Promise.all(imagePromises);
+    }
 
     res.status(201).json({ portfoilo, success: true });
   } catch (error) {
@@ -159,7 +161,7 @@ exports.getPortfoilo = async (req, res) => {
       include: [
         {
           model: Images,
-          attributes: ["url"],
+          attributes: ["url", "id"],
         },
       ],
     });
@@ -171,6 +173,26 @@ exports.getPortfoilo = async (req, res) => {
     }
 
     res.status(200).json({ portfoilo, success: true });
+  } catch (error) {
+    res.status(500).json({ message: error.message, success: false });
+  }
+};
+
+exports.deleteImage = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const image = await Images.findByPk(id);
+
+    if (!image) {
+      return res
+        .status(404)
+        .json({ message: "Image not found", success: false });
+    }
+
+    await image.destroy();
+
+    res.status(200).json({ success: true });
   } catch (error) {
     res.status(500).json({ message: error.message, success: false });
   }
