@@ -1,8 +1,15 @@
 const HomeSteps = require("../../models/HomeSteps");
+const Step = require("../../models/StepItems");
 
 exports.getSteps = async (req, res) => {
   try {
-    const steps = await HomeSteps.findAll();
+    const steps = await HomeSteps.findAll({
+      include: [
+        {
+          model: Step,
+        },
+      ],
+    });
     res.status(200).json({ steps, success: true });
   } catch (error) {
     res.status(500).json({ message: error.message, success: false });
@@ -67,7 +74,13 @@ exports.getStep = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const step = await HomeSteps.findByPk(id);
+    const step = await HomeSteps.findByPk(id, {
+      include: [
+        {
+          model: Step,
+        },
+      ],
+    });
     if (!step) {
       return res
         .status(404)

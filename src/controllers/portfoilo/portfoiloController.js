@@ -111,8 +111,8 @@ exports.updatePortfoilo = async (req, res) => {
 
     // Yeni image'ları kaydet
     const imagePromises = images.map(async (image) => {
-      return await Image.create({
-        url: image.url,
+      return await Images.create({
+        url: image,
         pId: portfoilo.id,
       });
     });

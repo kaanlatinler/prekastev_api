@@ -32,4 +32,9 @@ const HomeSteps = sequelize.define(
   }
 );
 
+const Step = require("./StepItems");
+
+HomeSteps.hasMany(Step, { foreignKey: "StepId", sourceKey: "id" });
+Step.belongsTo(HomeSteps, { foreignKey: "StepId", targetKey: "id" });
+
 module.exports = HomeSteps;
