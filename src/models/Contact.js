@@ -29,7 +29,7 @@ const Contact = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    budget: {
+    city: {
       type: DataTypes.STRING,
       allowNull: false,
     },

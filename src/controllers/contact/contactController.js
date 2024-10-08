@@ -13,7 +13,7 @@ exports.getContacts = async (req, res) => {
 
 exports.sendMail = async (req, res) => {
   try {
-    const { name, email, phone, message, areaSize, budget, propertyType } =
+    const { name, email, phone, message, areaSize, city, propertyType } =
       req.body;
 
     const transporter = nodemailer.createTransport({
@@ -31,7 +31,7 @@ exports.sendMail = async (req, res) => {
         from: email,
         to: "satis@prekastev.com",
         subject: `New Contact from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}\nArea Size: ${areaSize}\nBudget: ${budget}\nProperty Type: ${propertyType}`,
+        text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}\nArea Size: ${areaSize}\nCity: ${city}\nProperty Type: ${propertyType}`,
       };
 
       await transporter.sendMail(mailOptions, (err, data) => {
@@ -46,7 +46,7 @@ exports.sendMail = async (req, res) => {
         phone,
         message,
         areaSize,
-        budget,
+        city,
         propertyType,
       });
 
