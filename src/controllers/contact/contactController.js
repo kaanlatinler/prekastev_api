@@ -26,33 +26,31 @@ exports.sendMail = async (req, res) => {
       },
     });
 
-    try {
-      const mailOptions = {
-        from: email,
-        to: "satis@prekastev.com",
-        subject: `New Contact from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}\nArea Size: ${areaSize}\nCity: ${city}\nProperty Type: ${propertyType}`,
-      };
+    const mailOptions = {
+      from: email,
+      to: "satis@prekastev.com",
+      subject: `New Contact from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}\nArea Size: ${areaSize}\nCity: ${city}\nProperty Type: ${propertyType}`,
+    };
 
-      await transporter.sendMail(mailOptions, (err, data) => {
-        if (err) {
-          console.log(err);
-          res.status(500).json({ message: "Mail not sent", success: false });
-        }
-      });
-      const contact = await Contact.create({
-        name,
-        email,
-        phone,
-        message,
-        areaSize,
-        city,
-        propertyType,
-      });
+    // Mail gönderimi
+    await transporter.sendMail(mailOptions);
 
-      res.status(201).json({ contact, success: true, message: "Mail sent" });
-    } catch (error) {}
+    // Veritabanına kayıt işlemi
+    const contact = await Contact.create({
+      name,
+      email,
+      phone,
+      message,
+      areaSize,
+      city,
+      propertyType,
+    });
+
+    // Başarılı response
+    res.status(201).json({ contact, success: true, message: "Mail sent" });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message, success: false });
   }
 };
