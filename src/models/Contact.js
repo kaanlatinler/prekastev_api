@@ -33,7 +33,15 @@ const Contact = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    propertyType: {
+    heardFrom: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    floors: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    startDate: {
       type: DataTypes.STRING,
       allowNull: false,
     },
