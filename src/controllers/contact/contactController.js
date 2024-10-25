@@ -37,7 +37,7 @@ exports.sendMail = async (req, res) => {
 
     const mailOptions = {
       from: email,
-      to: "kaanlatinlerhd@gmail.com",
+      to: "satis@prekastev.com",
       subject: `Yeni İletişim Talebi - ${name}`,
       text: `Ad: ${name}\nE-posta: ${email}\nTelefon: ${phone}\nMesaj: ${message}\nAlan Boyutu: ${areaSize} m²\nŞehir: ${city}\nNereden Duydu: ${heardFrom}\nKat Sayısı: ${floors}\nBaşlangıç Tarihi: ${startDate}`,
     };
