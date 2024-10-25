@@ -13,8 +13,17 @@ exports.getContacts = async (req, res) => {
 
 exports.sendMail = async (req, res) => {
   try {
-    const { name, email, phone, message, areaSize, city, propertyType } =
-      req.body;
+    const {
+      name,
+      email,
+      phone,
+      message,
+      areaSize,
+      city,
+      heardFrom,
+      floors,
+      startDate,
+    } = req.body;
 
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -28,9 +37,9 @@ exports.sendMail = async (req, res) => {
 
     const mailOptions = {
       from: email,
-      to: "satis@prekastev.com",
-      subject: `New Contact from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}\nArea Size: ${areaSize}\nCity: ${city}\nProperty Type: ${propertyType}`,
+      to: "kaanlatinlerhd@gmail.com",
+      subject: `Yeni İletişim Talebi - ${name}`,
+      text: `Ad: ${name}\nE-posta: ${email}\nTelefon: ${phone}\nMesaj: ${message}\nAlan Boyutu: ${areaSize} m²\nŞehir: ${city}\nNereden Duydu: ${heardFrom}\nKat Sayısı: ${floors}\nBaşlangıç Tarihi: ${startDate}`,
     };
 
     // Mail gönderimi
@@ -44,11 +53,15 @@ exports.sendMail = async (req, res) => {
       message,
       areaSize,
       city,
-      propertyType,
+      heardFrom,
+      floors,
+      startDate,
     });
 
     // Başarılı response
-    res.status(201).json({ contact, success: true, message: "Mail sent" });
+    res
+      .status(201)
+      .json({ contact, success: true, message: "Mail başarıyla gönderildi" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message, success: false });
