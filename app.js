@@ -18,7 +18,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: 'https://www.prekastev.com',
+    origin: "*",
     methods: "GET,POST,PUT,DELETE",
     allowedHeaders: "Content-Type,Authorization",
   })
